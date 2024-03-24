@@ -1,7 +1,8 @@
 <cfparam name="searchme" default=""/>
+<cfparam name="genre" default=""/>
 
 <cfoutput>
-  <cfset bookInfo = bookstoreFunctions.obtainSearchResults(searchme)/>
+  <cfset bookInfo = bookstoreFunctions.obtainSearchResults(searchme, genre)/>
 
   <cfif bookInfo.recordcount == 0>
     #noResults()#
@@ -11,7 +12,6 @@
     #manyResults()#
   </cfif>
 
-  <cfdump var="#bookInfo#"/>
 </cfoutput>
 
 <cffunction name="noResults">
@@ -46,15 +46,15 @@
   <cfoutput>
     <div>
      <div>There were #bookInfo.recordcount# results found.</div>
-     <div>
-      <ol class="nav flex-column">
-        <cfloop query="bookInfo">
-          <li class="nav-item">
-            <a class="nav-link" href="#cgi.SCRIPT_NAME#?p=details&searchme=#isbn13#">#title#</a>
-          </li>
-        </cfloop>
-      </ol>
-     </div>
+      <div>
+        <ol class="nav flex-column">
+          <cfloop query="bookInfo">
+            <li class="nav-item">
+              <a class="nav-link" href="#cgi.SCRIPT_NAME#?p=details&searchme=#isbn13#">#title#</a>
+            </li>
+          </cfloop>
+        </ol>
+      </div>
     </div>
   </cfoutput>
 </cffunction>

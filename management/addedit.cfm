@@ -1,7 +1,6 @@
 <cftry>
   <cfparam name="book" default=""/>
   <cfparam name="qterm" default=""/>
-  <cfdump var="#form#">
 
   <cfset addEditFunctions = createObject("addedit") />
   <cfset addEditFunctions.processForms(form)>
@@ -32,6 +31,8 @@
 
     <cfset var thisBookDetails = addEditFunctions.bookDetails(book)/>
     <cfset var allPublishers = addEditFunctions.allPublishers()/>
+    <cfset var allGenres = addEditFunctions.allGenres()/>
+    <cfset var allGenresForThisBook = addEditFunctions.bookGenres(book)/>
 
     <cfoutput>
       <form action="#cgi.script_name#?tool=addedit&book=#book#&qterm=#qterm#" method="POST" enctype="multipart/form-data">
@@ -95,6 +96,24 @@
               .catch(error => {console.dir(error)});
           </script>
         </div>
+
+        <div>
+          <h4>Genres</h4>
+          <cfloop query="allGenres">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="#id#" id="genre#id#" name="genre">
+              <label class="form-check-label" for="genre#id#">
+                #name#
+              </label>
+            </div>
+          </cfloop>
+          <cfloop query="allGenresForThisBook">
+            <script type="text/javascript">
+              document.getElementById("genre#genreID#").checked=true;
+            </script>
+          </cfloop>
+        </div>
+
         <button type="submit" class="btn btn-primary" style="width: 100%">Add Book</button>
       </form>
     </cfoutput>
