@@ -33,10 +33,26 @@
                   <a class="nav-link" href="#">Events</a>
               </li>
           </ul>
-          <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <cfoutput>
+          <form class="d-flex" action="#cgi.SCRIPT_NAME#?p=details" method="POST">
+              <input class="form-control me-2" type="search" placeholder="Search" name="searchme" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
+          <ul class="navbar-nav mr-auto">
+            <cfif session.user.isLoggedIn>
+              <li class="nav-item">
+                <a class="nav-link">Welcome #session.user.firstname# #session.user.lastname#</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#cgi.SCRIPT_NAME#?p=logoff ">Logout</a>
+              </li>
+            <cfelse>
+              <li class="nav-item">
+                <a class="nav-link" href="#cgi.SCRIPT_NAME#?p=login">Login</a>
+              </li>
+            </cfif>
+          </ul>
+        </cfoutput>
       </div>
     </nav>
   </body>

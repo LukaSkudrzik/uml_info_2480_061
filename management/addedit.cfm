@@ -63,7 +63,7 @@
           <select class="form-select" id="publisherID" name="publisherID" aria-label="Publisher Select Control">
             <option value=""></option>
             <cfloop query="allPublishers">
-              <option value="#publisherID#">#name#</option>
+              <option value="#publisherID#" #publisherID eq thisBookDetails.publisher ? "selected" : ""#>#name#</option>
             </cfloop>
           </select>
           <label for="publisherID" >Publisher: </label>
